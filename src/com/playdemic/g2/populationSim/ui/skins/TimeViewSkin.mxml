@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:components="uk.co.jakerigby.sparkrl.framework.ui.components.*" 
+		xmlns:signals="org.osflash.signals.*"
+		creationComplete="{hostComponent.maxHeight = panel.height}">
+		<!-- 
+		restrict height by setting compnent heigh once only
+	
+		***** NEED TO REMOVE THE DEPENDENCY ON CONTENT WIDTH IN ViewMedaitor resize functionality, for dynamic contents! ***************
+	
+	-->
+	
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("com.playdemic.g2.populationSim.ui.views.TimeView")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import com.playdemic.g2.populationSim.utils.StringUtils;
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<signals:Signal id="chooseStartTime"/>
+		<fx:int id="rangeInDays">100</fx:int>
+	</fx:Declarations>
+	
+	<!-- SkinParts
+	name=panel, type=uk.co.jakerigby.sparkrl.framework.ui.components.ViewPanel, required=true
+	name=close, type=org.osflash.signals.Signal, required=false
+	-->
+	<components:ViewPanel id="panel" includeHeader="false" closeButtonEnabled="true" resizeEnabled="true">
+		
+		<components:layout>
+			<s:VerticalLayout/>
+		</components:layout>
+		
+		<s:Label text="Your time : {StringUtils.getFormatedDateOutput(hostComponent.now)}"/>
+		
+		<s:Label text="Sim time :{StringUtils.getFormatedDateOutput(hostComponent.sim)}"/>
+		
+		<s:Label id="startTimeBtn" text="{hostComponent.start}" click="{startTimeChooser.visible=true;startTimeChooser.includeInLayout=true}" buttonMode="true" />
+		<mx:DateChooser id="startTimeChooser" visible="false" includeInLayout="false"  
+						change="{chooseStartTime.dispatch(startTimeChooser.selectedDate); startTimeChooser.visible=false; startTimeChooser.includeInLayout=false}" />
+						<!--startTimeBtn.label=StringUtils.getDateFromUTCMilliseconds(startTimeChooser.selectedDate.time)	-->
+		
+		<s:HSlider width="100%" minimum="0" maximum="{rangeInDays}"/>
+		
+	</components:ViewPanel>
+
+</s:Skin>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx"  
+		xmlns:components="uk.co.jakerigby.sparkrl.framework.ui.components.*" 
+		xmlns:signals="org.osflash.signals.*" 
+		>  
+	
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("com.playdemic.g2.populationSim.ui.views.CreateVillagerView")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.playdemic.g2.populationSim.enums.GenderType;
+			import com.playdemic.g2.populationSim.models.VillagerModel;
+			import com.playdemic.g2.populationSim.utils.StringUtils;
+			
+			import mx.collections.ArrayCollection;
+			
+			import uk.co.jakerigby.sparkrl.framework.reflection.ClassUtils;
+			import uk.co.jakerigby.sparkrl.framework.reflection.Enum;
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<signals:Signal id="create"/>
+	</fx:Declarations>
+	
+	<components:ViewPanel title="Create a Villager" width="100%" height="100%" id="panel" closeButtonEnabled="true">
+		
+		<components:layout>
+			<s:VerticalLayout horizontalAlign="contentJustify"/>
+		</components:layout>
+		
+		<s:TextInput text="name" id="nameInp" />
+		
+		<s:DropDownList prompt="Gender" dataProvider="{new ArrayCollection(ClassUtils.getAllEnumerations(GenderType))}" id="genderInp"/>
+		
+		<s:DropDownList prompt="Father" id="fatherInp" dataProvider="{hostComponent.malesCache}"/>
+		
+		<s:DropDownList prompt="Mother" id="motherInp" dataProvider="{hostComponent.femalesCache}"/>
+		
+		<s:Button id="dateBtn" label="birthday" click="{birthdayInp.visible=true;birthdayInp.includeInLayout=true}" />
+		
+		<mx:DateChooser id="birthdayInp" visible="false" includeInLayout="false"  
+						change="{dateBtn.label=StringUtils.getDateFromUTCMilliseconds(birthdayInp.selectedDate.time);birthdayInp.visible=false;birthdayInp.includeInLayout=false}" />
+		
+		<s:Button label="create" click="{create.dispatch(new VillagerModel(VillagerModel.UID(),nameInp.text,motherInp.selectedItem,fatherInp.selectedItem,birthdayInp.selectedDate,genderInp.selectedItem))}"/>
+		
+	</components:ViewPanel>
+</s:Skin>

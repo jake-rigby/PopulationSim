@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx" 
+					   xmlns:populationSim="com.playdemic.g2.populationSim.*"
+					   backgroundColor="0x444444" 
+					   width="800" height="600" >
+	
+	<!-- include the default style sheet included in the Sparkrl swc -->
+	<fx:Style source="default.css"/>
+
+	<fx:Style>
+
+		/* App 
+		global
+		{
+			default sparkrl style colours overrides
+			fillNormal: #ffffff;
+			fillCompliment: #ff6200;
+			fillOver: #5bffda;			
+			color:#323337;			
+			textOver: #007f62;		
+			borderColor: #323337;
+		}
+		*/
+		
+		@namespace populationSim "com.playdemic.g2.populationSim.*";
+		@namespace views "com.playdemic.g2.populationSim.ui.views.*";
+		@namespace components1 "uk.co.jakerigby.sparkrl.framework.ui.components.*";
+		@namespace renderers1 "uk.co.jakerigby.sparkrl.framework.ui.renderers.*";
+
+		views|MainMenuView
+		{
+			skinClass:ClassReference("com.playdemic.g2.populationSim.ui.skins.MainMenuSkin")
+		}
+		
+		views|CreateVillagerView
+		{
+			skinClass:ClassReference("com.playdemic.g2.populationSim.ui.skins.CreateVillagerSkin")
+		}
+		
+		views|PopulationView
+		{
+			skinClass:ClassReference("com.playdemic.g2.populationSim.ui.skins.PopulationViewSkin")
+		}
+		
+		views|TimeView
+		{
+			skinClass:ClassReference("com.playdemic.g2.populationSim.ui.skins.TimeViewSkin")
+		}
+
+	</fx:Style>
+
+	<fx:Declarations>
+		<populationSim:PopulationSimContext contextView="{this}"/>
+	</fx:Declarations>
+	
+</s:WindowedApplication>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx"
+		xmlns:components="uk.co.jakerigby.sparkrl.framework.ui.components.*"
+		xmlns:signals="org.osflash.signals.*">
+	
+	<fx:Metadata>
+		[HostComponent("com.playdemic.g2.populationSim.ui.views.MainMenuView")]
+	</fx:Metadata>
+	
+	<fx:Declarations>
+		<signals:Signal id="openCreateVillager"/>
+		<signals:Signal id="openPopulationView"/>
+		<fx:Date id="startTime"/>
+		<signals:Signal id="openTimeView"/>
+	</fx:Declarations>
+	
+	<components:ViewPanel id="panel" title="Main Menu" resizeEnabled="false" >
+		
+		<components:layout>
+			<s:VerticalLayout/>
+		</components:layout>
+		
+		<s:Button label="create villager" click="openCreateVillager.dispatch()"/>
+		<s:Button label="view population" click="openPopulationView.dispatch()"/>		
+		<s:Button label="time view" click="{openTimeView.dispatch()}"/>
+
+		
+	</components:ViewPanel>
+	
+</s:Skin>
